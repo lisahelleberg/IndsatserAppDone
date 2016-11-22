@@ -1,13 +1,24 @@
 ﻿<Page
-    x:Class="Indsatser_app.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Indsatser_app"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModel="using:Indsatser_app.ViewModel"
+    x:Class="Indsatser_app.MainPage"
     mc:Ignorable="d">
 
+    <Page.DataContext>
+        <ViewModel:MedarbejderViewModel/>
+    </Page.DataContext>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="823" Margin="58,62,0,0" VerticalAlignment="Top" Width="539" ItemsSource="{Binding Medarbejderliste}" SelectedItem="{Binding SelectedMedarbejder, Mode=TwoWay}"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="134" Margin="602,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="828" Text="{Binding SelectedMedarbejder}" FontSize="24"/>
+        <TextBox x:Name="TBNavn" HorizontalAlignment="Left" Height="104" Margin="602,256,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.navn, Mode=TwoWay}" VerticalAlignment="Top" Width="389" PlaceholderText="Navn"/>
+        <TextBox x:Name="TBid" HorizontalAlignment="Left" Height="104" Margin="604,373,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.ID, Mode=TwoWay}" VerticalAlignment="Top" Width="387" PlaceholderText="Medarbejdernummer"/>
+        <TextBox x:Name="TBfunktion" HorizontalAlignment="Left" Height="104" Margin="603,493,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.funktion, Mode=TwoWay}" VerticalAlignment="Top" Width="388" PlaceholderText="Funktion"/>
+        <Button x:Name="Add" Content="Tilføj medarbejder" HorizontalAlignment="Left" Margin="602,631,0,0" VerticalAlignment="Top" FontSize="20" Command="{Binding AddMemberCommand}"/>
 
     </Grid>
 </Page>
