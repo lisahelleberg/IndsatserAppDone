@@ -32,7 +32,7 @@ namespace Indsatser_app.ViewModel
             }
         }
         public Model.Medarbejder NewMedarbejder { get; set; }
-
+        public AddMemberCommand Removemedarbejder { get; private set; }
 
         public MedarbejderViewModel()
         {
@@ -40,14 +40,17 @@ namespace Indsatser_app.ViewModel
             SelectedMedarbejder = new Model.Medarbejder();
             AddMemberCommand = new AddMemberCommand(AddNewMember);
             NewMedarbejder = new Model.Medarbejder();
-            
+            Removemedarbejder = new AddMemberCommand(RemoveMember);
         }
         public void AddNewMember()
         {
             Medarbejderliste.Add(NewMedarbejder);
         }
+        public void RemoveMember()
+        {
+            Medarbejderliste.Remove(selectedMedarbejder);
+        }
 
-      
 
     }
 }
