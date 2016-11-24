@@ -11,20 +11,6 @@ namespace Indsatser_app.ViewModel
 {
     class MedarbejderViewModel : INotifyPropertyChanged
     {
-        public Model.Medarbejderliste Medarbejderliste { get; set; }
-
-        private Model.Medarbejder selectedMedarbejder;
-
-        public AddMemberCommand AddMemberCommand { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
         public Model.Medarbejder SelectedMedarbejder
         {
             get { return selectedMedarbejder; }
@@ -34,36 +20,74 @@ namespace Indsatser_app.ViewModel
                 OnPropertyChanged(nameof(SelectedMedarbejder));
             }
         }
+        /// <summary>
+        /// Dette er Buttons props
+        /// </summary>
         public Model.Medarbejder NewMedarbejder { get; private set; }
-        public AddMemberCommand Removemedarbejder { get; private set; }
-        public AddMemberCommand SaveMedarbejderListe { get; private set; }
-        public AddMemberCommand HentDataCommand { get; private set; }
 
+        public RelayCommand Removemedarbejder { get; private set; }
+
+        public RelayCommand SaveMedarbejderListe { get; private set; }
+
+        public RelayCommand HentDataCommand { get; private set; }
+
+        // opbevarings folder lavet.
         StorageFolder localfolder = null;
 
+        public Model.Medarbejderliste Medarbejderliste { get; set; }
+
+
+        private Model.Medarbejder selectedMedarbejder;
+
+        private readonly string filnavn = "JsonText.json";
+
+        public RelayCommand AddMemberCommand { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        
+        /// <summary>
+        /// Konstruktor + try/catch exception
+        /// </summary>
         public MedarbejderViewModel()
         {
             Medarbejderliste = new Model.Medarbejderliste();
             SelectedMedarbejder = new Model.Medarbejder();
-            AddMemberCommand = new AddMemberCommand(AddNewMember);
+            AddMemberCommand = new RelayCommand(AddNewMember);
             NewMedarbejder = new Model.Medarbejder();
-            Removemedarbejder = new AddMemberCommand(RemoveMember);
+            Removemedarbejder = new RelayCommand(RemoveMember);
             localfolder = ApplicationData.Current.LocalFolder;
-            SaveMedarbejderListe = new AddMemberCommand(GemDataTilDiskAsync);
-            HentDataCommand = new AddMemberCommand(HentDataFraDiskAsync);
+            SaveMedarbejderListe = new RelayCommand(GemDataTilDiskAsync);
+            HentDataCommand = new RelayCommand(HentDataFraDiskAsync);
+            // Try og catch for at fange en exception for at undgå grimme fejlmeddelser - Virker ikke i nu
+            try
+            {
+                HentDataFraDiskAsync();
+            }
+            catch (Exception)
+            {
+                Medarbejderliste.Add(new Model.Medarbejder() { navn="børge", funktion="brandmanden", ID=200});
+                //throw;
+            }
         }
+        /// <summary>
+        /// Buttons til databind
+        /// </summary>
         public void AddNewMember()
         {
             Medarbejderliste.Add(NewMedarbejder);
         }
+
         public void RemoveMember()
         {
             Medarbejderliste.Remove(selectedMedarbejder);
         }
-        
-        
-
-        private readonly string filnavn = "JsonText.json";
         
         public async void GemDataTilDiskAsync()
         {

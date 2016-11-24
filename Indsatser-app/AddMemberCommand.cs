@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Indsatser_app
 {
-    class AddMemberCommand : ICommand
+    class RelayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
         private readonly Action execute;
@@ -20,7 +20,7 @@ namespace Indsatser_app
         {
             execute();
         }
-        public AddMemberCommand(Action execute)
+        public RelayCommand(Action execute)
         {
             this.execute = execute;
         }
