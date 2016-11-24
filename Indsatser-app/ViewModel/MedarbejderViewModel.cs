@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using Windows.Storage;
 using Newtonsoft.Json;
+using Windows.UI.Popups;
 
 namespace Indsatser_app.ViewModel
 {
@@ -53,7 +54,7 @@ namespace Indsatser_app.ViewModel
         }
         
         /// <summary>
-        /// Konstruktor + try/catch exception
+        /// Konstruktor
         /// </summary>
         public MedarbejderViewModel()
         {
@@ -65,24 +66,19 @@ namespace Indsatser_app.ViewModel
             localfolder = ApplicationData.Current.LocalFolder;
             SaveMedarbejderListe = new RelayCommand(GemDataTilDiskAsync);
             HentDataCommand = new RelayCommand(HentDataFraDiskAsync);
-            // Try og catch for at fange en exception for at undgå grimme fejlmeddelser - Virker ikke i nu
-            try
-            {
-                HentDataFraDiskAsync();
-            }
-            catch (Exception)
-            {
-                //For at se noget data vise sig når den fanger fejlen
-                Medarbejderliste.Add(new Model.Medarbejder() { navn="børge", funktion="brandmanden", ID=200});
-                //throw;
-            }
+            
         }
         /// <summary>
         /// Buttons til databind
         /// </summary>
         public void AddNewMember()
         {
-            Medarbejderliste.Add(NewMedarbejder);
+            //opdateret denne så funktionen virker ordentligt og ikke overskriver når der laves nye objekter
+            Model.Medarbejder TempMedarbejder = new Model.Medarbejder();
+            TempMedarbejder.funktion = NewMedarbejder.funktion;
+            TempMedarbejder.ID = NewMedarbejder.ID;
+            TempMedarbejder.navn = NewMedarbejder.navn;
+            Medarbejderliste.Add(TempMedarbejder);
         }
 
         public void RemoveMember()
@@ -100,12 +96,27 @@ namespace Indsatser_app.ViewModel
         //FileIO er en statisk klasse og det tager vi til næste semester.
         public async void HentDataFraDiskAsync()
         {
-            this.Medarbejderliste.Clear();
+            
+            try
+            {
             StorageFile file = await localfolder.GetFileAsync(filnavn);
+
             string jsonText = await FileIO.ReadTextAsync(file);
+
+            this.Medarbejderliste.Clear();
 
             // nu skal vi kalde metoden på medarbejderlisten
             Medarbejderliste.IndsætJson(jsonText);
+
+            // Try og catch for at fange en exception for at undgå grimme fejlmeddelser
+            }
+            catch (Exception)
+            {
+                //For at se noget data vise sig når den fanger fejlen
+                MessageDialog messageDialog = new MessageDialog("Filen ikke fundet. Har du fjernet den?");
+                await messageDialog.ShowAsync();
+                //throw;
+            }
         }
 
 
