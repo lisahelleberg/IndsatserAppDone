@@ -14,9 +14,9 @@
         
     </Page.DataContext>
 
-    <!--<Page.Resources>
+    <Page.Resources>
         <cv:IntConverter x:Name="IntConvert"/>
-    </Page.Resources>-->
+    </Page.Resources>
     <!--,  Converter={StaticResource IntConvert}dette er til Text="{Binding NewMedarbejder.ID, Mode=TwoWay, --> 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" CanDrag="True">
         <ListView x:Name="listView" HorizontalAlignment="Left" Background="LightGray" Height="823" Margin="900,62,0,0" VerticalAlignment="Top" Width="539" ItemsSource="{Binding Medarbejderliste}" SelectedItem="{Binding SelectedMedarbejder, Mode=TwoWay}" Header="Medarbejder oversigt:" FontFamily="Calibri"/>
@@ -24,7 +24,7 @@
         <Button x:Name="Add" Content="Tilføj medarbejder" HorizontalAlignment="Left" Margin="100,631,0,0" VerticalAlignment="Top" FontSize="20" Command="{Binding AddMemberCommand}" Padding="8,4"/>
         <Button x:Name="Remove" Content="Slet medarbejder" HorizontalAlignment="Left" Margin="100,185,0,0" VerticalAlignment="Top" FontSize="20" Width="182" Command="{Binding Removemedarbejder, Mode=OneWay}" FontFamily="Calibri"/>
         <TextBox x:Name="TBNavn_Copy" HorizontalAlignment="Left" Height="104" Margin="100,256,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.navn, Mode=TwoWay}" VerticalAlignment="Top" Width="389" PlaceholderText="Navn" FontFamily="Calibri"/>
-        <TextBox x:Name="TBid_Copy" HorizontalAlignment="Left" Height="104" Margin="100,373,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.ID, Mode=TwoWay}" VerticalAlignment="Top" Width="387" PlaceholderText="Medarbejder nummer" FontFamily="Calibri" />
+        <TextBox x:Name="TBid_Copy" HorizontalAlignment="Left" Height="104" Margin="100,373,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.ID, Mode=TwoWay,Converter={StaticResource IntConvert}}" VerticalAlignment="Top" Width="387" PlaceholderText="Medarbejder nummer" FontFamily="Calibri" />
         <TextBox x:Name="TBfunktion_Copy" HorizontalAlignment="Left" Height="104" Margin="100,493,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.funktion, Mode=TwoWay}" VerticalAlignment="Top" Width="388" PlaceholderText="Funktion" FontFamily="Calibri"/>
         <Button x:Name="Save" HorizontalAlignment="Left" Margin="501,670,0,0" VerticalAlignment="Top" Content="Save" Command="{Binding SaveMedarbejderListe, Mode=OneWay}"/>
         <Button x:Name="button_Copy" Content="Hent" HorizontalAlignment="Left" Margin="557,670,0,0" VerticalAlignment="Top" Command="{Binding HentDataCommand, Mode=OneWay}"/>

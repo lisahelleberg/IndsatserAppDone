@@ -73,7 +73,7 @@ namespace Indsatser_app.ViewModel
         /// </summary>
         public void AddNewMember()
         {
-            // forsøger her at lave en if kommando der nægter at oprette ny medarbejder hvis ID allerede eksistere.
+            //If kommando der nægter at oprette ny medarbejder hvis ID allerede eksistere.
             bool findesID = this.findes(NewMedarbejder.ID);
             if (!findesID)
             {
