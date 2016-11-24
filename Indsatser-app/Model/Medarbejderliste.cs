@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Indsatser_app.Model
 {
@@ -11,6 +12,8 @@ namespace Indsatser_app.Model
     {
         public Medarbejderliste()
         {
+
+
             // Ny medarbejder
             Medarbejder m1 = new Medarbejder();
             m1.navn = "Lisa";
@@ -31,6 +34,21 @@ namespace Indsatser_app.Model
             this.Add(m1);
             this.Add(m2);
             this.Add(m3);
+        }
+
+        public string GetJson()
+        {
+            string json = JsonConvert.SerializeObject(this);
+            return json;
+        }
+        public void IndsætJson(string jsonText)
+        {
+            List<Medarbejder> nyListe = JsonConvert.DeserializeObject<List<Medarbejder>>(jsonText);
+
+            foreach (var Medarbejder in nyListe)
+            {
+                this.Add(Medarbejder);
+            }
         }
     }
 }

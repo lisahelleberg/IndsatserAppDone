@@ -26,6 +26,9 @@
         <TextBox x:Name="TBNavn_Copy" HorizontalAlignment="Left" Height="104" Margin="100,256,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.navn, Mode=TwoWay}" VerticalAlignment="Top" Width="389" PlaceholderText="Navn" FontFamily="Calibri"/>
         <TextBox x:Name="TBid_Copy" HorizontalAlignment="Left" Height="104" Margin="100,373,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.ID, Mode=TwoWay}" VerticalAlignment="Top" Width="387" PlaceholderText="Medarbejder nummer" FontFamily="Calibri" />
         <TextBox x:Name="TBfunktion_Copy" HorizontalAlignment="Left" Height="104" Margin="100,493,0,0" TextWrapping="Wrap" Text="{Binding NewMedarbejder.funktion, Mode=TwoWay}" VerticalAlignment="Top" Width="388" PlaceholderText="Funktion" FontFamily="Calibri"/>
+        <Button x:Name="Save" HorizontalAlignment="Left" Margin="501,670,0,0" VerticalAlignment="Top" Content="Save" Command="{Binding SaveMedarbejderListe, Mode=OneWay}"/>
+        <Button x:Name="button_Copy" Content="Hent" HorizontalAlignment="Left" Margin="557,670,0,0" VerticalAlignment="Top" Command="{Binding HentDataCommand, Mode=OneWay}"/>
+        <Button x:Name="button_Copy1" Content="Button" HorizontalAlignment="Left" Margin="627,670,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
