@@ -52,7 +52,7 @@ namespace Indsatser_app.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        
+
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -66,7 +66,7 @@ namespace Indsatser_app.ViewModel
             localfolder = ApplicationData.Current.LocalFolder;
             SaveMedarbejderListe = new RelayCommand(GemDataTilDiskAsync);
             HentDataCommand = new RelayCommand(HentDataFraDiskAsync);
-            
+
         }
         /// <summary>
         /// Buttons til databind
@@ -80,6 +80,19 @@ namespace Indsatser_app.ViewModel
             TempMedarbejder.navn = NewMedarbejder.navn;
             Medarbejderliste.Add(TempMedarbejder);
         }
+        
+        // Potentiel funktion til at afvise medarbejder med samme/ens ID
+        //public bool findes(int ID)
+        //{
+        //    foreach (var medarbejder in Medarbejderliste)
+        //    {
+        //        if (medarbejder == NewMedarbejder.ID)
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //}
+
 
         public void RemoveMember()
         {
