@@ -73,25 +73,37 @@ namespace Indsatser_app.ViewModel
         /// </summary>
         public void AddNewMember()
         {
+            // forsøger her at lave en if kommando der nægter at oprette ny medarbejder hvis ID allerede eksistere.
+            bool findesID = this.findes(NewMedarbejder.ID);
+            if (!findesID)
+            {
+                Model.Medarbejder TempMedarbejder = new Model.Medarbejder();
+                TempMedarbejder.funktion = NewMedarbejder.funktion;
+                TempMedarbejder.ID = NewMedarbejder.ID;
+                TempMedarbejder.navn = NewMedarbejder.navn;
+                Medarbejderliste.Add(TempMedarbejder);
+            }
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog("ID findes allerede");
+                messageDialog.ShowAsync().AsTask();
+            }
             //opdateret denne så funktionen virker ordentligt og ikke overskriver når der laves nye objekter
-            Model.Medarbejder TempMedarbejder = new Model.Medarbejder();
-            TempMedarbejder.funktion = NewMedarbejder.funktion;
-            TempMedarbejder.ID = NewMedarbejder.ID;
-            TempMedarbejder.navn = NewMedarbejder.navn;
-            Medarbejderliste.Add(TempMedarbejder);
+           
         }
-        
-        // Potentiel funktion til at afvise medarbejder med samme/ens ID
-        //public bool findes(int ID)
-        //{
-        //    foreach (var medarbejder in Medarbejderliste)
-        //    {
-        //        if (medarbejder == NewMedarbejder.ID)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //}
+
+        //Potentiel funktion til at afvise medarbejder med samme/ens ID
+        public bool findes(int ID)
+        {
+            foreach (var medarbejder in Medarbejderliste)
+            {
+                if (ID == medarbejder.ID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
 
         public void RemoveMember()
