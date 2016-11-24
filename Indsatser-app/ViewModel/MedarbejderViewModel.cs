@@ -72,6 +72,7 @@ namespace Indsatser_app.ViewModel
             }
             catch (Exception)
             {
+                //For at se noget data vise sig når den fanger fejlen
                 Medarbejderliste.Add(new Model.Medarbejder() { navn="børge", funktion="brandmanden", ID=200});
                 //throw;
             }
