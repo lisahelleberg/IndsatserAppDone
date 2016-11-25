@@ -7,6 +7,7 @@ using System.Windows.Input;
 
 namespace Indsatser_app
 {
+    //navnet på denne klasse har jeg ikke turde ændre grundet chancen for fejl. 
     class RelayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
