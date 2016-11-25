@@ -9,9 +9,10 @@ namespace Indsatser_app.Model
     class Medarbejder
     {
         public string navn { get; set; }
-        public int ID {get; set; }
-        public string funktion { get; set; }
 
+        public int ID {get; set; }
+
+        public string funktion { get; set; }
 
 
 

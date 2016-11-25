@@ -44,6 +44,7 @@ namespace Indsatser_app.ViewModel
 
         public RelayCommand AddMemberCommand { get; set; }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -82,17 +83,18 @@ namespace Indsatser_app.ViewModel
                 TempMedarbejder.ID = NewMedarbejder.ID;
                 TempMedarbejder.navn = NewMedarbejder.navn;
                 Medarbejderliste.Add(TempMedarbejder);
+                
             }
             else
             {
                 MessageDialog messageDialog = new MessageDialog("ID findes allerede");
                 messageDialog.ShowAsync().AsTask();
             }
-            //opdateret denne så funktionen virker ordentligt og ikke overskriver når der laves nye objekter
+            
            
         }
-
-        //Potentiel funktion til at afvise medarbejder med samme/ens ID
+        
+        //funktion til at afvise medarbejder med samme/ens ID
         public bool findes(int ID)
         {
             foreach (var medarbejder in Medarbejderliste)
@@ -130,14 +132,14 @@ namespace Indsatser_app.ViewModel
 
             this.Medarbejderliste.Clear();
 
-            // nu skal vi kalde metoden på medarbejderlisten
+            //metoden på medarbejderlisten
             Medarbejderliste.IndsætJson(jsonText);
 
             // Try og catch for at fange en exception for at undgå grimme fejlmeddelser
             }
             catch (Exception)
             {
-                //For at se noget data vise sig når den fanger fejlen
+                //Popup vindue til at fortælle brugeren at filen ikke blev fundet. 
                 MessageDialog messageDialog = new MessageDialog("Filen ikke fundet. Har du fjernet den?");
                 await messageDialog.ShowAsync();
                 //throw;

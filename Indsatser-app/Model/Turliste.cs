@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Indsatser_app.Model
-{
-    class Turliste : ObservableCollection<Ture>
-    {
-    }
-}
+// Dette er et kapitel til senere.
+//namespace Indsatser_app.Model
+//{
+//    class Turliste : ObservableCollection<Ture>
+//    {
+//    }
+//}
